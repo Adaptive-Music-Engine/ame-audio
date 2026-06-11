@@ -44,13 +44,15 @@ publishing {
     }
     repositories {
         mavenLocal()
+        mavenCentral()
         maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/Adaptive-Music-Engine/ame-audio")
+            name = "GitHubPackages-core"
+            url = uri("https://maven.pkg.github.com/Adaptive-Music-Engine/ame-core")
             credentials {
-                username = System.getenv("GITHUB_ACTOR")
-                password = System.getenv("GITHUB_TOKEN")
+                username = System.getenv("GITHUB_ACTOR") ?: project.findProperty("gpr.user")
+                password = System.getenv("GITHUB_TOKEN") ?: project.findProperty("gpr.key")
             }
         }
+        maven { url 'https://jitpack.io' }
     }
 }
