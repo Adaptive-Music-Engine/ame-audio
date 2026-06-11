@@ -14,12 +14,19 @@ java {
 repositories {
     mavenLocal()
     mavenCentral()
+    maven {
+        name = "GitHubPackages-core"
+        url = uri("https://maven.pkg.github.com/Adaptive-Music-Engine/ame-core")
+        credentials {
+            username = System.getenv("GITHUB_ACTOR") ?: project.findProperty("gpr.user")
+            password = System.getenv("GITHUB_TOKEN") ?: project.findProperty("gpr.key")
+        }
+    }
 }
 
 dependencies {
     implementation 'com.ame:ame-core:0.1.0'
 
-    // OGG Unterstützung für Java Sound API
     implementation 'com.googlecode.soundlibs:tritonus-share:0.3.7.4'
     implementation 'com.googlecode.soundlibs:vorbisspi:1.0.3.3'
     implementation 'com.googlecode.soundlibs:mp3spi:1.9.5.4'
@@ -44,15 +51,13 @@ publishing {
     }
     repositories {
         mavenLocal()
-        mavenCentral()
         maven {
-            name = "GitHubPackages-core"
-            url = uri("https://maven.pkg.github.com/Adaptive-Music-Engine/ame-core")
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/Adaptive-Music-Engine/ame-audio")
             credentials {
                 username = System.getenv("GITHUB_ACTOR") ?: project.findProperty("gpr.user")
                 password = System.getenv("GITHUB_TOKEN") ?: project.findProperty("gpr.key")
             }
         }
-        maven { url 'https://jitpack.io' }
     }
 }
